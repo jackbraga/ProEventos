@@ -13,6 +13,7 @@ builder.Services.AddDbContext<DataContext>(
 
     context => context.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
 );
+builder.Services.AddCors();
 
 var app = builder.Build(); 
 
@@ -22,6 +23,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(x=>
+            x.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+    );
 
 app.UseHttpsRedirection();
 
